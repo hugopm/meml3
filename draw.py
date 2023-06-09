@@ -9,6 +9,7 @@ random.seed(42*42)
 pic.draw(line([(0, 0), (DIM - DIM/NB_POINTS, 0)]), thick=True, line_width='0.25mm')
 def up(x1, x2):
     pic.draw((x2, 0), arc(radius=(x2-x1)/2, start_angle=0, end_angle=180), thick=True)
+#pic.draw((x2, 0), arc(radius=(x2-x1)/2, start_angle=0, end_angle=-180), thin=True, color="gray", dashed=True)
 def down(x1, x2):
     pic.draw((x2, 0), arc(radius=(x2-x1)/2, start_angle=0, end_angle=-180), thick=True)
 
