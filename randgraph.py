@@ -13,42 +13,41 @@ edges = """0 1
 10 1
 10 11""".split('\n')
 edges = [tuple(map(int, x.split())) for x in edges]
-print(edges)
+#print(edges)
 
-bad = [8, 9, 11]
-def tnod(node):
+voisinages = [[0], [0,1,2,3,5], [0,1,2,3,5,6,7,4,10], [0,1,2,3,5,6,7,4,10,8,9,11]]
+def tnod(k, node):
     a = ""
     if node == 0:
         a = "[red,fill=red]"
-    elif not (node in bad):
+    elif node in voisinages[k]:
         a = "[red]"
     return str(node)+a
-def tedg(edge):
+def tedg(k, edge):
     u, v = edge
-    u, v = tnod(u), tnod(v)
+    u, v = tnod(k, u), tnod(k, v)
     tactac = "--"
     if "red" in u and "red" in v:
-        tactac += "[red]"
+        tactac += "[red,thick]"
     return f"{u} {tactac} {v}"
 
-edges = [tedg(x) for x in edges]
-
+print("\\begin{figure}\n\\centering")
 print("\\begin{tikzpicture}")
-# for i, n in enumerate(liste, 1):
-#     dist = "1.5" if n <= 10 else "1"
-print("""\\graph [spring layout, nodes={circle,draw,as=.}]
-{ %s }""" % (";".join(edges)))
-    
-# print("""\\only<%s>{\\graph []
-# { %s }}""" % (len(liste)+1, g(4)))
-
+for k in range(1, 4):
+    sedg = [tedg(k, x) for x in edges]
+    print("\\only<%s>{" % k,end="")
+    # for i, n in enumerate(liste, 1):
+    #     dist = "1.5" if n <= 10 else "1"
+    print("""\\graph [spring layout, node distance=1.5cm, nodes={circle,draw,as=}]
+    { %s }""" % (";".join(sedg)) + "}%")
 print("\\end{tikzpicture}")
-# print("\\caption{")
     
-# for i, n in enumerate(liste, 1):
-#     typ = "$C_{%s}$ lui-même"%n if n <= 7 else "une chaîne de taille 6"
-#     print("\only<%s>{Le $3$-voisinage de $C_{%s}$ est %s}" % (i, n, typ))
+
+print("\\caption{",end="")
+    
+for k in range(1, 4):
+    print("\only<%s>{$%s$-voisinage}" % (k, k) + "%")
 
 # print("\only<%s>{La chaîne infinie $P_\infty$}" % (len(liste)+1))
 
-# print("}\n\\end{figure}")
+print("}\\end{figure}")
