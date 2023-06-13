@@ -8,7 +8,7 @@ def f(n):
             res += "[red]"
         res += "--"
         if max(min(i, n-i), min(i+1, n-i-1)) <= 3:
-            res += "[red]"
+            res += "[red,thick]"
     res += "0"
     return res
 
@@ -25,18 +25,18 @@ def g(n):
         if i < 2*n:
             res += "--"
             if max(abs(i-n), abs(i+1-n)) <= 3:
-                res += "[red]"
+                res += "[red,thick]"
     res = "a[as=] --[dotted,thick] " + res + " --[dotted,thick] b[as=]"
     return res
 
-liste = [4, 7, 8, 14]
+liste = [4, 7, 8, 11, 14]
 
 print("""\\begin{figure}
 \\centering
 \\begin{tikzpicture}""")
 for i, n in enumerate(liste, 1):
-    dist = "1.5" if n <= 10 else "1"
-    print("""\\only<%s>{\\graph [simple necklace layout, node distance=%scm, nodes={circle,draw,as=.}]
+    dist = "1.5" if n <= 8 else ("1.25" if n <= 11 else "1")
+    print("""\\only<%s>{\\graph [simple necklace layout, node distance=%scm, nodes={circle,draw,as=}]
 { %s }}""" % (i, dist, f(n)))
     
 print("""\\only<%s>{\\graph []
