@@ -48,4 +48,9 @@ pic = Picture(scale=3, line_cap='round')
 pic.draw((0, 0), grid((DIM_X, DIM_Y), xstep=DIM_X/NB_POINTS, ystep=1),
     help_lines=True, very_thin=True, color='black!20!white')
 pic.draw(line(coords), thick=True, line_width='1mm')
-pic.write_image("marche100.pdf")
+def r(*a):
+    return [x*DIM_X/NB_POINTS for x in a]
+x1, x2, y1, y2 = r(55, 75) + [5, 12.97]
+pic.draw(line([(x1,y2), (x1,y1), (x2,y1), (x2,y2)]), color="red", line_width="3mm")
+pic.draw((r(65)[0], 9), circle(radius="1.5mm"), color="red", fill="red")
+pic.write_image("cvbs.pdf")
